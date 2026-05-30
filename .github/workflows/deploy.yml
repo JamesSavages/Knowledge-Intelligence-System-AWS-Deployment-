@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted # Triggers your EC2 runner directly
+    runs-on: self-hosted # Triggers your EC2 self-hosted runner directly
 
     steps:
       - name: Checkout code
@@ -30,9 +30,8 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPO }} 
           IMAGE_TAG: latest
         run: |
-          # 1. Share the ECR login token with the root user so sudo can pull the image
-          sudo mkdir -p /root/.docker
-          sudo cp ~/.docker/config.json /root/.docker/config.json
+          # 1. Log root directly into ECR so sudo docker can pull successfully
+          aws ecr get-login-password --region ${{ secrets.AWS_DEFAULT_REGION }} | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
 
           # 2. Stop and remove the old container if it exists
           sudo docker stop knowledge-bot || true

@@ -3,11 +3,11 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main # Change this to master if that is your primary branch name
+      - main # Change this to master if your primary branch is named master
 
 jobs:
   deploy:
-    runs-on: self-hosted # This tells GitHub to use the runner in your screenshot!
+    runs-on: self-hosted # Triggers your EC2 runner directly
 
     steps:
       - name: Checkout code
@@ -30,14 +30,18 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPO }} 
           IMAGE_TAG: latest
         run: |
-          # Stop and remove the old container if it exists
+          # 1. Share the ECR login token with the root user so sudo can pull the image
+          sudo mkdir -p /root/.docker
+          sudo cp ~/.docker/config.json /root/.docker/config.json
+
+          # 2. Stop and remove the old container if it exists
           sudo docker stop knowledge-bot || true
           sudo docker rm knowledge-bot || true
 
-          # Pull the latest image from AWS ECR
+          # 3. Pull the latest built image from your Sydney ECR repo
           sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-          # Run the new container, injecting your secrets
+          # 4. Spin up the container live on port 8080, passing your app secrets
           sudo docker run -d \
             --name knowledge-bot \
             -p 8080:8080 \

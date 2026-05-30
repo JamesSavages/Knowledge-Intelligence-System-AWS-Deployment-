@@ -6,14 +6,14 @@
 ### STEPS:
 
 
-### STEP 01- Create a conda environment after opening the repository
+### STEP 01- Create a uv or conda environment after opening the repository
 
 ```bash
 conda create -n llmapp python=3.11 -y
 ```
 
 ```bash
-conda activate llmapp
+uv init
 ```
 
 
@@ -22,12 +22,14 @@ conda activate llmapp
 pip install -r requirements.txt
 ```
 
+```bash
+uv add -r requirements.txt
+```
 
 ```bash
 # Finally run the following command
 python app/main.py
 ```
-
 
 # AWS-CICD-Deployment-with-Github-Actions
 
@@ -42,7 +44,7 @@ python app/main.py
 	2. ECR: Elastic Container registry to save your docker image in aws
 
 
-	#Description: About the deployment
+	# Description: About the deployment
 
 	1. Build docker image of the source code
 
@@ -62,13 +64,12 @@ python app/main.py
 
 	
 ## 3. Create ECR repo to store/save docker image
-    - Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
+    - Save the ECR URI provided 
 
 	
 ## 4. Create EC2 machine (Ubuntu) 
 
 ## 5. Open EC2 and Install docker in EC2 Machine:
-	
 	
 	#optinal
 
@@ -97,3 +98,4 @@ python app/main.py
    - AWS_DEFAULT_REGION
    - ECR_REPO
    - OPENAI_API_KEY
+   - AWS_BUCKET_NAME

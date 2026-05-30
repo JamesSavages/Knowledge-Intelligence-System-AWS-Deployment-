@@ -5,7 +5,6 @@ Document Storage for the s3 bucket
 import boto3 # AWS service for softward dev
 from botocore.exceptions import ClientError
 from botocore.retries import bucket
-from sqlalchemy import exc
 from urllib3 import response
 # from app import config
 from config import Config
@@ -16,9 +15,9 @@ class S3Storage:
         
         self.s3 = boto3.client(
             's3',
-            aws_access_key_id = Config.AWS_ACCESS_KEY,
-            aws_secret_access_key = Config.AWS_SECRET_KEY
-        )
+            aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY
+        )   
 
         self.bucket = Config.AWS_BUCKET_NAME
 

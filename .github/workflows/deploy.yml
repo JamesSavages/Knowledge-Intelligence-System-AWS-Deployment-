@@ -3,11 +3,11 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main # Change this to master if your primary branch is named master
+      - main
 
 jobs:
   deploy:
-    runs-on: self-hosted # Triggers your EC2 self-hosted runner directly
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -37,7 +37,7 @@ jobs:
           sudo docker stop knowledge-bot || true
           sudo docker rm knowledge-bot || true
 
-          # 3. Pull the latest built image from your Sydney ECR repo
+          # 3. Pull the latest built image from your ECR repo
           sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
           # 4. Spin up the container live on port 8080, passing your app secrets

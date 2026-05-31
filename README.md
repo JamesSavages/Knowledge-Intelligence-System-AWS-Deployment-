@@ -1,5 +1,13 @@
 # Knowledge-Intelligence-System
 
+-- A knowledge intelliegnce system used to load files and query the AI. 
+-- Systems used 
+	- Cursor for local development
+	- OpenaAI, Langchain, ChromaDB for RAG development
+	- Docker for container image
+	- S3 for file upload and storage
+	- Elastic Container Registry (ECR) to securely store container image
+	- Elastic Compute Cloud (EC2) used for virual computer instance in the cloud. 
 
 # How to run?
 

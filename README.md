@@ -1,6 +1,7 @@
 # Knowledge-Intelligence-System
 
--- A knowledge intelliegnce system used to load files and query the AI. 
+A knowledge intelliegnce system used to load files and query the AI. 
+
 -- Systems used 
 	- Cursor for local development
 	- OpenaAI, Langchain, ChromaDB for RAG development
